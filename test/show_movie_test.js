@@ -4,32 +4,40 @@ describe('Show movie', function(){
 	var FirebaseServiceMock, RouteParamsMock;
 
   	beforeEach(function(){
-  		// Lisää moduulisi nimi tähän
-    	module('MyAwesomeModule');
+            module('Elokuvakirjasto');
+            
+            var key = "12351234adfh";
+            RouteParamsMock = (function(){
+                return {
+                    key: key
+                };
+            });
+            
+            FirebaseServiceMock = (function(){
+                this.movie = {
+                    $id: key,
+                    name: "The Adventures of Priscilla, Queen of the Desert",
+                    director: "Stephan Elliott",
+                    year: "1994",
+                    description: "A surprisingly tender and thoughtful road movie with some outstanding performances."
+                };
+                return {
+                    getMovie: function(key, callback) {
+                        callback(this.movie);
+                    }
+                };
+            })();
 
-    	FirebaseServiceMock = (function(){
-			return {
-				// Toteuta FirebaseServicen mockatut metodit tähän
-			}
-		})();
+            
 
-		RouteParamsMock = (function(){
-			return {
-				// Toteuta mockattu $routeParams-muuttuja tähän
-			}
-		});
+            spyOn(FirebaseServiceMock, 'getMovie').and.callThrough();
 
-		// Lisää vakoilijat
-	    // spyOn(FirebaseServiceMock, 'jokuFunktio').and.callThrough();
-
-    	// Injektoi toteuttamasi kontrolleri tähän
 	    inject(function($controller, $rootScope) {
 	      scope = $rootScope.$new();
-	      // Muista vaihtaa oikea kontrollerin nimi!
-	      controller = $controller('MyAwesomeController', {
+	      controller = $controller('ViewMovie', {
 	        $scope: scope,
-	        FirebaseService: FirebaseServiceMock,
-	       	$routePrams: RouteParamsMock
+                $routeParams: RouteParamsMock,
+	        Firebase: FirebaseServiceMock
 	      });
 	    });
   	});
@@ -44,6 +52,7 @@ describe('Show movie', function(){
   	* käyttämällä toBeCalled-oletusta.
 	*/
 	it('should show current movie from Firebase', function(){
-		expect(true).toBe(false);
+            expect(scope.movie).toEqual(FirebaseServiceMock.movie);
+            expect(FirebaseServiceMock.getMovie).toHaveBeenCalled();
 	});
 });

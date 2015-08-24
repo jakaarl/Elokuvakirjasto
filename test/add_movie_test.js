@@ -41,11 +41,13 @@ describe('Add movie', function(){
   	* toBeCalled-oletusta.
 	*/
 	it('should be able to add a movie by its name, director, release date and description', function(){
-            scope.name = 'Plan 9 from Outer Space';
-            scope.director = 'Ed Wood';
-            scope.year = '1959';
-            scope.description = 'Worst movie ever made!';
-            scope.submitForm(true);
+            scope.movie = {
+                name: "Plan 9 from Outer Space",
+                director: "Ed Wood",
+                year: "1959",
+                description: "Worst movie ever made!"
+            };
+            scope.submitForm();
             expect(FirebaseMock.getMovies().length).toBe(1);
             expect(FirebaseMock.addMovie).toHaveBeenCalled();
 	});
