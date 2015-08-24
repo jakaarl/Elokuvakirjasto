@@ -7,6 +7,12 @@ Elokuvakirjasto.service('Firebase', function($firebase) {
         return movies;
     };
     
+    this.getMovie = function(key, callback) {
+        movies.$loaded(function() {
+            callback(movies.$getRecord(key));
+        });
+    };
+    
     this.addMovie = function(movie) {
         for (var i = 0; movies.length > i; i++) {
             var other = movies[i];
@@ -19,5 +25,9 @@ Elokuvakirjasto.service('Firebase', function($firebase) {
         }
         movies.$add(movie);
         return true;
+    };
+    
+    this.saveMovie = function(movie) {
+        movies.$save(movie);
     };
 });

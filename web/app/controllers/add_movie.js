@@ -1,21 +1,12 @@
 Elokuvakirjasto.controller('AddMovie', function($scope, $location, Firebase) {
-    $scope.name;
-    $scope.director;
-    $scope.year;
-    $scope.description;
+    $scope.movie = {};
     
     $scope.submitForm = function() {
-        if ($scope.name
-                && $scope.director
-                && $scope.year
-                && $scope.description) {
-            var movie = {
-                name: $scope.name,
-                director: $scope.director,
-                year: $scope.year,
-                description: $scope.description
-            };
-            if (Firebase.addMovie(movie)) {
+        if ($scope.movie.name
+                && $scope.movie.director
+                && $scope.movie.year
+                && $scope.movie.description) {
+            if (Firebase.addMovie($scope.movie)) {
                 $location.path('/movies');
             }
         }
