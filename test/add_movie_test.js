@@ -1,29 +1,32 @@
 describe('Add movie', function(){
 	var controller, scope;
 
-	var FirebaseServiceMock;
+	var FirebaseMock;
 
   	beforeEach(function(){
-  		// Lisää moduulisi nimi tähän
-    	module('MyAwesomeModule');
+            module('Elokuvakirjasto');
 
-    	FirebaseServiceMock = (function(){
-			return {
-				// Toteuta FirebaseServicen mockatut metodit tähän
-			}
-		})();
+            FirebaseMock = (function(){
+                var movies = [];
+                return {
+                    getMovies: function() {
+                        return movies;
+                    },
+                    addMovie: function(movie) {
+                        movies.push(movie);
+                    }
+                };
+            })();
 
-		// Lisää vakoilijat
-	    // spyOn(FirebaseServiceMock, 'jokuFunktio').and.callThrough();
+	    spyOn(FirebaseMock, 'getMovies').and.callThrough();
+            spyOn(FirebaseMock, 'addMovie').and.callThrough();
 
-    	// Injektoi toteuttamasi kontrolleri tähän
 	    inject(function($controller, $rootScope) {
-	      scope = $rootScope.$new();
-	      // Muista vaihtaa oikea kontrollerin nimi!
-	      controller = $controller('MyAwesomeController', {
-	        $scope: scope,
-	        FirebaseService: FirebaseServiceMock
-	      });
+                scope = $rootScope.$new();
+                controller = $controller('AddMovie', {
+                    $scope: scope,
+                    Firebase: FirebaseMock
+                });
 	    });
   	});
 
@@ -38,7 +41,13 @@ describe('Add movie', function(){
   	* toBeCalled-oletusta.
 	*/
 	it('should be able to add a movie by its name, director, release date and description', function(){
-		expect(true).toBe(false);
+            scope.name = 'Plan 9 from Outer Space';
+            scope.director = 'Ed Wood';
+            scope.year = '1959';
+            scope.description = 'Worst movie ever made!';
+            scope.submitForm(true);
+            expect(FirebaseMock.getMovies().length).toBe(1);
+            expect(FirebaseMock.addMovie).toHaveBeenCalled();
 	});
 
 	/*	
@@ -48,6 +57,11 @@ describe('Add movie', function(){
 	* not.toBeCalled-oletusta (muista not-negaatio!).
 	*/
 	it('should not be able to add a movie if its name, director, release date or description is empty', function(){
-		expect(true).toBe(false);
+            scope.director = 'Ed Wood';
+            scope.year = '1959';
+            scope.description = 'Worst movie ever made!';
+            scope.submitForm(true);
+            expect(FirebaseMock.getMovies().length).toBe(0);
+            expect(FirebaseMock.addMovie).not.toHaveBeenCalled();
 	});
 });

@@ -1,0 +1,7 @@
+<div ng-controller="ListMovies">
+    <ul ng-repeat="movie in movies | orderBy: -movie.year">
+        <li>{{ movie.name }} ({{ movie.director }}, {{ movie.year }})</li>
+    </ul>
+</div>
+<a href="#/movies/new">Lisää uusi elokuva</a>
+
