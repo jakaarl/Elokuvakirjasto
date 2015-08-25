@@ -1,6 +1,7 @@
 <div ng-controller="ListMovies">
     <ul ng-repeat="movie in movies | orderBy: '-year'">
-        <li><a ng-href="#/movies/{{movie.$id}}">{{ movie.name }} ({{ movie.director }}, {{ movie.year }})</a></li>
+        <li><a ng-href="#/movies/{{movie.$id}}">{{ movie.name }} ({{ movie.director }}, {{ movie.year }})</a>
+            <a href="#/" ng-click="deleteMovie(movie)" ng-show="loggedInUser">Poista</a></li>
     </ul>
 </div>
 <a href="#/movies/new">Lisää uusi elokuva</a>

@@ -1,4 +1,7 @@
-Elokuvakirjasto.controller('AddMovie', function($scope, $location, Firebase) {
+Elokuvakirjasto.controller('AddMovie', function($scope, $rootScope, $location, Firebase) {
+    if (!$rootScope.loggedInUser) {
+        $location.path('/login');
+    }
     $scope.movie = {};
     
     $scope.submitForm = function() {

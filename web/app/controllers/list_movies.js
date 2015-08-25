@@ -1,5 +1,9 @@
-Elokuvakirjasto.controller('ListMovies', function($scope, $location, Firebase) {
+Elokuvakirjasto.controller('ListMovies', function($scope, Firebase) {
     $scope.movies = Firebase.getMovies();
+    
+    $scope.deleteMovie = function(movie) {
+        Firebase.deleteMovie(movie);
+    };
 });
 
 

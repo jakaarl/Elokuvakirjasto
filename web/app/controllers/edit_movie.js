@@ -1,4 +1,7 @@
-Elokuvakirjasto.controller('EditMovie', function($scope, $routeParams, $location, Firebase) {
+Elokuvakirjasto.controller('EditMovie', function($scope, $rootScope, $routeParams, $location,  Firebase) {
+    if (!$rootScope.loggedInUser) {
+        $location.path('/login');
+    }
     
     Firebase.getMovie($routeParams.key, function(movie) {
         $scope.movie = movie;

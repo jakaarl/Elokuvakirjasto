@@ -1,0 +1,17 @@
+<div ng-controller="UserManagement">
+    <h1 ng-show="loggedInUser">Olet kirjautunut käyttäjänä {{ loggedInUser.password.email }}</h1>
+    <h1 ng-show="!loggedInUser">Kirjaudu sisään</h1>
+    <div ng-show="message">{{ message }}</div>
+    <div ng-show="!loggedInUser">
+        <form name="loginForm" novalidate="novalidate" ng-submit="logIn()">
+            <label>Sähköpostiosoite:
+                <input type="email" name="email" ng-model="email" required ng-pattern="/^\w+\.?\w*@\w*\.\w+$/">
+            </label>
+            <label>Salasana:
+                <input type="password" name="password" ng-model="password" required ng-minlength="8">
+            </label>
+            <button type="submit" ng-disabled="!loginForm.$valid">Kirjaudu</button>
+        </form>
+        <a href="#/register">Rekisteröidy</a>
+    </div>
+</div>

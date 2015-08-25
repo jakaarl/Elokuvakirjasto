@@ -30,4 +30,8 @@ Elokuvakirjasto.service('Firebase', function($firebase) {
     this.saveMovie = function(movie) {
         movies.$save(movie);
     };
+    
+    this.deleteMovie = function(movie) {
+        movies.$remove(movie);
+    };
 });

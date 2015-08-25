@@ -8,19 +8,24 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body ng-app="Elokuvakirjasto">
+    <div ng-show="!loggedInUser"><a href="#/login">Kirjaudu sisään</a></div>
+    <div ng-show="loggedInUser">Kirjautunut käyttäjänä {{ loggedInUser.password.email }} | <a href="/index.html" ng-click="logOut()">Kirjaudu ulos</a></div>
     <div ng-view></div>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angularfire/dist/angularfire.min.js"></script>
 
     <script src="app/app.js"></script>
     <script src="app/services/firebase_service.js"></script>
     <script src="app/services/omdb_service.js"></script>
+    <script src="app/services/auth_service.js"></script>
     <script src="app/controllers/list_movies.js"></script>
     <script src="app/controllers/view_movie.js"></script>
     <script src="app/controllers/edit_movie.js"></script>
     <script src="app/controllers/add_movie.js"></script>
     <script src="app/controllers/find_movies.js"></script>
+    <script src="app/controllers/user_management.js"></script>
   </body>
 </html>
