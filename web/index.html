@@ -12,13 +12,10 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="#/">Elokuvakirjasto</a>
-        </div>
-        <div class="nav navbar navbar-left">
           <p class="navbar-text">Elokuvat</p>
         </div>
         <div class="nav navbar-nav navbar-right">
-          <p class="navbar-btn"><a ng-show="!loggedInUser" href="#/login" class="btn btn-default" role="button">Kirjaudu sisään</a></p>
-          <a ng-show="loggedInUser" href="#/" ng-click="logOut()" class="btn btn-default navbar-btn" role="button">Kirjaudu ulos</a>
+          <button ng-show="loggedInUser" ng-click="logOut()" class="btn btn-default navbar-btn">Kirjaudu ulos</button>
         </div>
       </div>
     </nav>

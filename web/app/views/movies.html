@@ -1,8 +1,57 @@
-<div ng-controller="ListMovies">
-    <ul ng-repeat="movie in movies | orderBy: '-year'">
-        <li><a ng-href="#/movies/{{movie.$id}}">{{ movie.name }} ({{ movie.director }}, {{ movie.year }})</a>
-            <a href="#/" ng-click="deleteMovie(movie)" ng-show="loggedInUser">Poista</a></li>
-    </ul>
+<div ng-controller="FindMovies" class="container-fluid">
+  <div class="col-md-6">
+    <h1>Hae elokuvia</h1>
+    <form name="movieSearch" novalidate="novalidate" ng-submit="findMovies()">
+      <div class="form-group">
+        <label for="name">Nimi</label>
+        <input type="text" class="form-control" name="name" ng-model="name" required>
+      </div>
+      <div class="form-group">
+        <label for="year">Julkaisuvuosi</label>
+        <input type="text" class="form-control" name="year" ng-model="year" integer ng-pattern="/^\d{4}$/">
+      </div>
+      <div class="form-group">
+        <button type="submit" ng-disabled="!movieSearch.$valid" class="btn btn-primary">Hae</button>
+      </div>
+    </form>
+  </div>
+  <div ng-show="submitted" class="container-fluid">
+    <h2><ng-pluralize count="movies.length"
+         when="{
+            '0': 'Hakusanalla ei löytynyt elokuvia',
+            'one': 'Haulla löytyi yksi elokuva',
+            'other': 'Haulla löytyi {} elokuvaa'
+         }"></ng-pluralize></h2>
+    <table class="table">
+      <tr>
+        <th>Elokuva</th>
+        <th>Julkaisuvuosi</th>
+      <tr>
+      <tr ng-repeat="movie in movies | orderBy: '-Year'">
+        <td><a ng-href="http://imdb.com/title/{{ movie.imdbID }}">{{ movie.Title }}</a></td>
+        <td>{{ movie.Year}}</td>
+      </tr>
+    </table>
+  </div>
 </div>
-<a href="#/movies/new">Lisää uusi elokuva</a>
+<div ng-controller="ListMovies" class="container-fluid">
+  <h1>Elokuvat</h1>
+  <table class="table">
+    <tr>
+      <th>Elokuva</th>
+      <th>Ohjaaja</th>
+      <th>Julkaisuvuosi</th>
+      <th></th>
+    </tr>
+    <tr ng-repeat="movie in movies | orderBy: '-year'">
+      <td><a ng-href="#/movies/{{movie.$id}}">{{ movie.name }}</a></td>
+      <td>{{ movie.director }}</td>
+      <td>{{ movie.year }}</td>
+      <td><a href="#/" ng-click="deleteMovie(movie)" ng-show="loggedInUser" class="btn btn-danger">Poista</a></td>
+    </tr>
 
+  </table>
+  <p>
+    <a href="#/movies/new" class="btn btn-primary">Lisää elokuva</a>
+  </p>
+</div>
