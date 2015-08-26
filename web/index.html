@@ -5,17 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Elokuvakirjasto</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-3.3.2-dist/css/bootstrap.min.css">
   </head>
   <body ng-app="Elokuvakirjasto">
-    <div ng-show="!loggedInUser"><a href="#/login">Kirjaudu sisään</a></div>
-    <div ng-show="loggedInUser">Kirjautunut käyttäjänä {{ loggedInUser.password.email }} | <a href="/index.html" ng-click="logOut()">Kirjaudu ulos</a></div>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#/">Elokuvakirjasto</a>
+        </div>
+        <div class="nav navbar navbar-left">
+          <p class="navbar-text">Elokuvat</p>
+        </div>
+        <div class="nav navbar-nav navbar-right">
+          <p class="navbar-btn"><a ng-show="!loggedInUser" href="#/login" class="btn btn-default" role="button">Kirjaudu sisään</a></p>
+          <a ng-show="loggedInUser" href="#/" ng-click="logOut()" class="btn btn-default navbar-btn" role="button">Kirjaudu ulos</a>
+        </div>
+      </div>
+    </nav>
     <div ng-view></div>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angularfire/dist/angularfire.min.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 
     <script src="app/app.js"></script>
     <script src="app/services/firebase_service.js"></script>
