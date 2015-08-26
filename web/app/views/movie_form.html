@@ -1,27 +1,34 @@
+  <div class="container-fluid">
     <form name="movieForm" novalidate="novalidate" ng-submit="submitForm(movieForm.$valid)">
-        <label>Nimi:
-            <input type="text" ng-model="movie.name" name="name" required ng-minlength="1">
-            <span ng-show="movieForm.name.$dirty && movieForm.name.$invalid">
-                Nimi on pakollinen.
-            </span>
-        </label>
-        <label>Ohjaaja:
-            <input type="text" ng-model="movie.director" name="director" required ng-pattern="/^\w+.*$/">
-            <span ng-show="movieForm.director.$dirty && movieForm.director.$invalid">
-                Ohjaaja on pakollinen.
-            </span>
-        </label>
-        <label>Vuosi:
-            <input type="text" ng-model="movie.year" name="year" required integer ng-pattern="/^\d{4}$/">
+      <div class="form-group">
+        <label for="name">Nimi</label>
+        <input type="text" class="form-control" ng-model="movie.name" name="name" required ng-minlength="1">
+        <span ng-show="movieForm.name.$dirty && movieForm.name.$invalid">
+          Nimi on pakollinen.
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="director">Ohjaaja</label>
+        <input type="text" class="form-control" ng-model="movie.director" name="director" required ng-pattern="/^\w+.*$/">
+        <span ng-show="movieForm.director.$dirty && movieForm.director.$invalid">
+          Ohjaaja on pakollinen.
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="year">Vuosi</label>
+        <input type="text" class="form-control" ng-model="movie.year" name="year" required integer ng-pattern="/^\d{4}$/">
             <span ng-show="movieForm.year.$dirty && movieForm.year.$invalid">
                 Vuosi on pakollinen ja sen on oltava nelinumeroinen.
             </span>
         </label>
-        <label>Kuvaus:
-            <input type="text" ng-model="movie.description" name="description" required ng-minlegth="3">
-            <span ng-show="movieForm.description.$dirty && movieForm.description.$invalid">
-                Kuvaus on pakollinen.
-            </span>
-        </label>
-        <button type="submit" ng-disabled="!movieForm.$valid">Tallenna</button>
+      </div>
+      <div class="form-group">
+        <label for="description">Kuvaus</label>
+        <textarea rows="3" class="form-control" ng-model="movie.description" name="description" required ng-minlegth="3"></textarea>
+        <span ng-show="movieForm.description.$dirty && movieForm.description.$invalid">
+          Kuvaus on pakollinen.
+        </span>
+      </div>
+      <button type="submit" class="btn btn-primary" ng-disabled="!movieForm.$valid">Tallenna</button>
     </form>
+  </div>
